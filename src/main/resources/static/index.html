@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Java + Web UI</title>
+</head>
+<body>
+  <h1>Spring Boot Web UI</h1>
+
+  <input id="name" placeholder="Enter your name">
+  <input id="age" type="number" placeholder="Age">
+  <button onclick="sayHello()">Send</button>
+  <button onclick="getBirthYear()">Calculate birth year</button>
+
+  <p id="result"></p>
+  <p id="birthResult"></p>
+
+  <script>
+    function sayHello() {
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+
+      fetch(`/api/hello?name=${name}&age=${age}`)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("result").innerText = data.text;
+        });
+    }
+    function getBirthYear() {
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+
+      fetch(`/api/birthyear?name=${name}&age=${age}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("birthResult").innerText =
+            `${data.name} was born in ${data.birthYear}`;
+        });
+    }
+  </script>
+</body>
+</html>
